@@ -6,6 +6,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { useEffect } from "react";
 import regimg from "../assets/Security On-bro.png"
 import { useUserRegistMutation } from "../redux/features/books/booksApi";
+import toast from "react-hot-toast";
 interface SignupFormInputs {
   displayName?:string;
   photoURL?:string;
@@ -27,6 +28,8 @@ const navigate =useNavigate()
     console.log(data);
    dispatch(createUser({email:data.email,password:data.password}))
    userRegist(data)
+   toast.success("User Registration successfully")
+   navigate('/login')
   };
    const handleGoogleLogin=()=>{
        dispatch(googleLogin())

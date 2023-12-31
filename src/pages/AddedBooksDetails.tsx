@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
-import {  useGetReviewQuery, useGetUsersQuery, usePostReviewMutation, useSingleBookQuery } from "../redux/features/books/booksApi"
-import { useNavigate, useParams } from "react-router-dom";
+import { useDeleteBookMutation, useGetAddBookbyIdQuery, useGetReviewQuery, useGetUsersQuery, usePostReviewMutation} from "../redux/features/books/booksApi"
+import { Link, useNavigate, useParams } from "react-router-dom";
 //import { useState } from "react";
-import { useAppSelector } from "../redux/hook";
+//import { useAppSelector } from "../redux/hook";
 import toast from "react-hot-toast";
+import { useAppSelector } from "../redux/hook";
 interface ReviewFormInputs {
   text: string;
 
 }
 
-const SinglebookDetails = () => {
+const AddedBooksDetails = () => {
     const {
     register,
     handleSubmit,
@@ -26,28 +27,26 @@ const SinglebookDetails = () => {
  console.log(users)
  console.log(user)
  const {data:revires}=useGetReviewQuery(id,{refetchOnMountOrArgChange:true,pollingInterval:30000});
-
-
-
-
  const [postReview,{isSuccess}]=usePostReviewMutation();
-
-
-
-
-
  console.log(revires)
- const {data:book,isLoading,error} = useSingleBookQuery(id,{refetchOnMountOrArgChange:true,pollingInterval:30000});
+ 
+ 
+ 
+ 
+ const {data:book,isLoading,error} = useGetAddBookbyIdQuery(id,{refetchOnMountOrArgChange:true,pollingInterval:30000});
 console.log(book)
 
    const onSubmit = (datas: ReviewFormInputs) => {
     console.log(datas.text);
     const options={
       id:id,
-      data:{review:datas.text},
+      data:{
+        review:datas.text,
+      },
     }
       if(user?.email){
     postReview(options)
+
     console.log(options)
     toast.success('Review send successfully')
     reset()
@@ -62,28 +61,23 @@ console.log(error);
 console.log(book)
 console.log(isSuccess)
 
-
-
- //const [deleteBook] = useDeleteBookMutation(book?._id)
-
-
-
-
+ const [deleteBook] = useDeleteBookMutation(book?.title)
 
 const navigate =useNavigate()
-// const handleDeleteBook=(data: any)=>{
+const handleDeleteBook=(data: any)=>{
 
-//   if(user?.email){
-//    deleteBook(data)
-//    navigate('/allbooks')
-//    toast.success("Book has deleted successfully")
-//   }else{
-//     toast.error("Please login")
-//   navigate('/login')
+  if(user?.email){
+   deleteBook(data)
+   console.log(data)
+   navigate('/addbooks')
+   toast.success("Book has deleted successfully")
+  }else{
+    toast.error("Please login")
+  navigate('/login')
   
-//   }
+  }
 
-//    }
+   }
   // const handleEditBook=(data: any)=>{
   //   console.log(data)
     
@@ -102,21 +96,21 @@ const navigate =useNavigate()
       <div className="badge badge text-xl"><p>Publication Date:{}</p>{book?.publicationdate}</div>
        <div className="badge badge text-xl"><p>Rating:{}</p>{book?.rating}</div>
     </div>
-    {/* <Link to={`/editbook/${book?._id}`}>
+    <Link to={`/editbook/${book?._id}`}>
     <button style={{width:'100%'}} className="btn btn-primary">Edit Book</button>
-    </Link> */}
+    </Link>
 
-    {/* <label htmlFor="my_modal_6" className="btn btn-warning">Delete Book</label> */}
+    <label htmlFor="my_modal_6" className="btn btn-warning">Delete Book</label>
 {/* Put this part before </body> tag */}
 <input type="checkbox" id="my_modal_6" className="modal-toggle" />
 <div className="modal" role="dialog">
   <div className="modal-box">
     <h3 className="font-bold text-lg">Hello!</h3>
     <p className="py-4">This modal works with a hidden checkbox!</p>
-    {/* <div className="modal-action">
+    <div className="modal-action">
        <label htmlFor="my_modal_6" onClick={()=>handleDeleteBook(book?._id)} className="btn btn-error">Delete Book</label>
       <label htmlFor="my_modal_6" className="btn">Close!</label>
-    </div> */}
+    </div>
   </div>
 </div>
 
@@ -151,13 +145,20 @@ const navigate =useNavigate()
           <div key={index} className="flex gap-3 items-center mb-5">
             <div>
 <div className="card card-side w-96 h-1/2 bg-base-100 shadow-xl">
-  <div className="avatar">
+
+
+  {/* <div className="avatar">
   <div className="w-8 rounded-full">
     <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="Tailwind-CSS-Avatar-component" />
   </div>
-</div>
-  <p>{user.email}</p>
+</div> */}
+
+  {/* <p>{user.email}</p> */}
     </div>
+
+
+
+
     <div>
 <div className="badge badge-secondary text-xl ">{book?.title}</div>
   <p>{review}</p>
@@ -173,4 +174,4 @@ const navigate =useNavigate()
   )
 }
 
-export default SinglebookDetails
+export default AddedBooksDetails

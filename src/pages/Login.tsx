@@ -5,6 +5,7 @@ import { googleLogin, loginUser } from "../redux/features/user/userSlice";
 import { useEffect } from "react";
 import { FcGoogle } from 'react-icons/fc';
 import imglog from "../assets/Mobile login-bro.png";
+import toast from "react-hot-toast";
 interface LoginFormInputs {
   email: string;
   password: string;
@@ -22,6 +23,7 @@ const Login = () => {
   const onSubmit = (data: LoginFormInputs) => {
     console.log(data);
     dispatch(loginUser({email:data.email,password:data.password}))
+    toast.success("User Login SuccessFully")
   };
 
   const handleGoogleLogin=()=>{

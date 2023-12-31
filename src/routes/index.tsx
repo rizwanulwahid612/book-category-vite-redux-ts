@@ -10,6 +10,7 @@ import SinglebookDetails from '../pages/SinglebookDetails';
 import AddBooks from '../pages/AddBooks';
 import EditBooks from '../pages/EditBooks';
 import CreateBook from '../pages/CreateBook';
+import AddedBooksDetails from '../pages/AddedBooksDetails';
 
 
 const routes = createBrowserRouter([
@@ -23,7 +24,7 @@ const routes = createBrowserRouter([
       },
       {
         path: '/allbooks',
-        element:<PrivateRoute><AllBooks /></PrivateRoute>  ,
+        element:<AllBooks />,
       },
        {
         path: '/book/:id',
@@ -36,6 +37,10 @@ const routes = createBrowserRouter([
        {
         path: '/addbooks',
         element:<PrivateRoute><AddBooks /></PrivateRoute> ,
+      },
+       {
+        path: '/addbookdetails/:id',
+        element:<AddedBooksDetails />,
       },
        {
         path: '/createbook',

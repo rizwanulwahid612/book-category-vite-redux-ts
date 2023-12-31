@@ -3,11 +3,12 @@
 //import { Link } from "react-router-dom";
 
 import { Link } from "react-router-dom";
-import { useGetBooksQuery } from "../redux/features/books/booksApi";
+import { useAddNewBookMutation, useGetBooksQuery } from "../redux/features/books/booksApi";
 import Books from "./Books";
-import { useAppDispatch, useAppSelector } from "../redux/hook";
-import { addToCart } from "../redux/features/cart/cartSlice";
+import { useAppSelector } from "../redux/hook";
+//import { addToCart } from "../redux/features/cart/cartSlice";
 import {  useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 
 
@@ -23,7 +24,7 @@ console.log(searchTerm)
     // const dataSearch =filteredData?.filter((item:any)=>item?.toString()?.toLowerCase());
 
      const {data,isLoading,error,}=useGetBooksQuery(undefined,{refetchOnMountOrArgChange:true,pollingInterval:30000});
-     
+     const [addNewBook]=useAddNewBookMutation()
      const uniqueCategorySet = new Set(data?.data?.map((p:any) => p?.genre));
      console.log(uniqueCategorySet)
      const uniqueCategoryNames = Array.from(uniqueCategorySet);
@@ -36,14 +37,17 @@ publicationdate));
 
 
    const {user}= useAppSelector((state)=>state.user)
-   console.log(user)
+   console.log(user.email)
    console.log(error);
    console.log(isLoading);
    console.log(data?.data?.map((b:any)=>b));
-const dispatch = useAppDispatch()
+   //const dispatch = useAppDispatch()
    const handleAddNew=(data:any)=>{
-    dispatch((addToCart(data)))
-    
+    //dispatch((addToCart(data)))
+    const newData = { ...data, user:user?.email };
+    console.log(newData)
+     addNewBook(newData)
+     toast.success('Book added')
    }
 
   const handleCheckboxChange = (categoryName: string) => {

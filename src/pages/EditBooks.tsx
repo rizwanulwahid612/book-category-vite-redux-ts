@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { IBook } from "../types/globalTypes";
 import toast from "react-hot-toast";
-import { useEditbookMutation, useSingleBookQuery } from "../redux/features/books/booksApi";
+import { useEditbookMutation, useGetAddBookbyIdQuery, } from "../redux/features/books/booksApi";
 import { useState } from "react";
 
 
 const EditBooks = () => {
   const { id } = useParams();
-  const {data:book,isLoading,error} = useSingleBookQuery(id,{refetchOnMountOrArgChange:true,pollingInterval:30000});
+  const {data:book,isLoading,error} = useGetAddBookbyIdQuery(id,{refetchOnMountOrArgChange:true,pollingInterval:30000});
   console.log(isLoading)
   console.log(error)
   console.log(book)
@@ -34,7 +34,7 @@ const {
       }
 
       await editbook({ id:id, data }).unwrap();
-      navigate(`/book/${id}`)
+      navigate(`/addbookdetails/${id}`)
       toast.success("Book Successfully Updated!");
       
     } catch (error: any) {
