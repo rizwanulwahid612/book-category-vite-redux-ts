@@ -147,11 +147,11 @@ const handleDeleteBook=(data: any)=>{
 <div className="card card-side w-96 h-1/2 bg-base-100 shadow-xl">
 
 
-  {/* <div className="avatar">
+  <div className="avatar">
   <div className="w-8 rounded-full">
     <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="Tailwind-CSS-Avatar-component" />
   </div>
-</div> */}
+</div>
 
   {/* <p>{user.email}</p> */}
     </div>
