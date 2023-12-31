@@ -1,11 +1,11 @@
 
-import { addToCart, removeFromCart, removeOne } from '../redux/features/cart/cartSlice';
-import { useAppDispatch, useAppSelector } from '../redux/hook';
+
+import {  useAppSelector } from '../redux/hook';
 
 export default function AddBooks() {
   //! Dummy data
   const {products}=useAppSelector((state)=>state.cart);
-  const dispatch = useAppDispatch()
+ // const dispatch = useAppDispatch()
   return (
     
         <div className="space-y-5">
@@ -16,27 +16,18 @@ export default function AddBooks() {
               key={product.title}
             >
               <div className="border-r pr-5 shrink-0">
-                <img src={product?.image} alt="" className="h-full" />
+                <img src={product?.image} alt="" className="h-full w-96"  />
               </div>
-              <div className="px-2 w-full flex flex-col gap-3">
+              <div className="px-2 w-full flex flex-col gap-2">
                 <h1 className="text-2xl self-center">{product?.title}</h1>
-                <p>Quantity: {product.quantity}</p>
+                  
+            <div className="badge badge text-xl"><p>Author:{}</p> {product?.author}</div>
+            <div className="badge badge text-xl "><p>Genre:{}</p>{product?.genre}</div> 
+            <div className="badge badge text-xl"><p>Publication Date:{}</p>{product?.publicationdate}</div>
+            <div className="badge badge text-xl"><p>Rating:{}</p>{product?.rating}</div>
                
               </div>
-              <div className="border-l pl-5 flex flex-col justify-between">
-                <button onClick={()=>dispatch(addToCart(product))}>
-                  plus +
-                </button>
-                <button onClick={()=>dispatch(removeOne(product))}>
-                  minus -
-                </button>
-                <button onClick={()=>dispatch(removeFromCart(product))}
-                  
-                  className="bg-red-500 hover:bg-red-400"
-                >
-                  delete
-                </button>
-              </div>
+            
             </div>
           ))}
         </div>
