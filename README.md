@@ -4,7 +4,7 @@ I have full filled all requirments...please check my assignment
 
 frontend deployment essues...because data is not showing but if you check manually then data will be shown into my frontend page.. just command: npm run dev on frontend
 live frontend link: https://book-category-system.web.app/login
-live backend-link: https://book-category-server.vercel.app/users
+live backend-link: https://book-category-server.vercel.app/api/books
 
 env var front end:   VITE_apiKey=AIzaSyDgiVVkK2AoCeqm2ohnLYP37OqypM4s1Xo
   VITE_authDomain=book-category-system.firebaseapp.com
