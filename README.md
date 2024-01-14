@@ -2,8 +2,11 @@
 I have full filled all requirments...please check my assignment.
 ***frontend deployment essues...because data is not showing but if you check manually then data will be shown into my frontend page.. just copy my front end from github.and install node modules then just command: "npm run dev" .
 live backend-link: https://book-category-server.vercel.app/api/books
-
+github frontend link:https://github.com/rizwanulwahid612/book-category-vite-redux-ts/
+github backendlink:https://github.com/rizwanulwahid612/book-category-server
 live frontend link: https://book-category-system.web.app/login
+
+
 
 env var front end:   VITE_apiKey=AIzaSyDgiVVkK2AoCeqm2ohnLYP37OqypM4s1Xo
   VITE_authDomain=book-category-system.firebaseapp.com
